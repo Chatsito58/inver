@@ -60,6 +60,12 @@ try {
     );
     $pagoStmt->execute([$idAbono, $idMedioPago]);
 
+    // Almacenar el evento para auditoría
+    $eventoStmt = $pdo->prepare(
+        'INSERT INTO pago_evento (id_abono, id_medio_pago, id_usuario, fecha_evento) VALUES (?, ?, ?, NOW())'
+    );
+    $eventoStmt->execute([$idAbono, $idMedioPago, $idCliente]);
+
     // Marcar el abono como pagado e indicar el medio utilizado
     $updateStmt = $pdo->prepare(
         'UPDATE Abono_reserva SET estado = "pagado", id_medio_pago = ? WHERE id_abono = ?'
