@@ -3,6 +3,7 @@
 $idCliente = $_SESSION['id_cliente'] ?? null;
 
 require_once '../../modelos/conexion.php';
+require_once '../../includes/csrf.php';
 
 $cliente = [];
 $licencia = [];
@@ -32,7 +33,7 @@ if ($idCliente) {
 <?php endif; ?>
 
 <form method="POST" action="/controladores/actualizar_licencia.php">
-    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? ''); ?>">
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generarToken()); ?>">
 
     <div class="row mb-3">
         <div class="col-md-6">
