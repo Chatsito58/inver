@@ -1,6 +1,13 @@
 <?php
-/**
- * Funciones de utilidad para proteger formularios con tokens CSRF.
+function generarToken(): string {
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+function validarToken(string $token): bool {
+/* Funciones de utilidad para proteger formularios con tokens CSRF.
  */
 
 function generarToken() {
