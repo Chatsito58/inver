@@ -113,6 +113,25 @@ CREATE TABLE reserva (
   id_usuario INT
 );
 
+CREATE TABLE Reserva_alquiler (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_reserva INT,
+  id_alquiler INT,
+  FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva),
+  FOREIGN KEY (id_alquiler) REFERENCES alquiler(id)
+);
+
+CREATE TABLE Abono_reserva (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_reserva_alquiler INT,
+  valor DECIMAL(10,2),
+  fecha DATE,
+  estado VARCHAR(20),
+  id_medio_pago INT,
+  FOREIGN KEY (id_reserva_alquiler) REFERENCES Reserva_alquiler(id),
+  FOREIGN KEY (id_medio_pago) REFERENCES medio_pago(id)
+);
+
 CREATE TABLE sede (
   id INT PRIMARY KEY,
   ubicacion VARCHAR(255),
@@ -179,3 +198,14 @@ CREATE TABLE vehiculo (
   tipo_vehiculo_id INT,
   id_sede INT
 );
+
+ALTER TABLE alquiler
+  ADD FOREIGN KEY (vehiculo_id) REFERENCES vehiculo(placa),
+  ADD FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+  ADD FOREIGN KEY (valor_alquiler_id) REFERENCES valor_alquiler(id),
+  ADD FOREIGN KEY (sede_id) REFERENCES sede(id);
+
+ALTER TABLE pago_evento
+  ADD FOREIGN KEY (id_abono) REFERENCES Abono_reserva(id),
+  ADD FOREIGN KEY (id_medio_pago) REFERENCES medio_pago(id),
+  ADD FOREIGN KEY (id_usuario) REFERENCES usuario(id);
