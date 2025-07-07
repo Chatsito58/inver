@@ -2,6 +2,9 @@
 session_start();
 require_once '../modelos/conexion.php';
 
+// Obtener instancia de PDO
+$pdo = Conexion::getPDO();
+
 // Validar campos
 if (empty($_POST['correo']) || empty($_POST['contrasena'])) {
     header("Location: ../login.php?error=Completa todos los campos");
