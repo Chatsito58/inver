@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['tipo_usuario_id'] != 3) {
-    header("Location: ../login.php");
+    header("Location: ../public/login.php");
     exit;
 }
 
@@ -87,8 +87,8 @@ try {
 <html lang="es">
 <head>
     <title>CRUD Alquiler</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <script src="../public/js/bootstrap.bundle.min.js"></script>
 </head>
 <body class="container mt-4">
     <h2>Gestión de Alquileres</h2>

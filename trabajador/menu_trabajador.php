@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['tipo_usuario_id'] != 3) {
-    header("Location: ../login.php");
+    header("Location: ../public/login.php");
     exit;
 }
 ?>
@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['tipo_usuario_id'] != 3
 <head>
     <meta charset="UTF-8">
     <title>Menú del Trabajador</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
 </head>
 <body class="container mt-4">
     <h2 class="mb-4">Bienvenido, <?= $_SESSION['usuario']['nombre'] ?? 'Trabajador' ?></h2>
