@@ -1,3 +1,2 @@
-<?php
-// Placeholder for mis_datos.php
+<p>Sección: Mis datos (contenido en construcción).</p>
 
