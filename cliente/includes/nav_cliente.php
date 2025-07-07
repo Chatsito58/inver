@@ -10,7 +10,7 @@
                     <a class="nav-link" href="/cliente/perfil.php">Perfil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout.php">Cerrar sesión</a>
+                    <a class="nav-link" href="/public/logout.php">Cerrar sesión</a>
                 </li>
             </ul>
         </div>

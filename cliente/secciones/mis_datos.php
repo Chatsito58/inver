@@ -41,7 +41,7 @@ if ($idCliente) {
     </script>
 <?php endif; ?>
 
-<form method="POST" action="/controladores/actualizar_licencia.php">
+<form method="POST" action="/cliente/actualizar_licencia.php">
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generarToken()); ?>">
 
     <div class="row mb-3">
@@ -98,7 +98,7 @@ if ($idCliente) {
 </form>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form[action="/controladores/actualizar_licencia.php"]');
+    const form = document.querySelector('form[action="/cliente/actualizar_licencia.php"]');
     if (!form) return;
 
     const fechaExp = form.querySelector('input[name="fecha_expedicion"]');

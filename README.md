@@ -18,8 +18,10 @@ This repository contains a basic directory structure for the **Alquiler Vehiculo
 2. From the repository root, start the PHP development server:
 
    ```bash
-   php -S localhost:8000 -t alquiler_vehiculos
+   php -S localhost:8000 -t public
    ```
+
+   The `public/` directory is the web root after the project reorganization.
 
 3. Visit `http://localhost:8000` in your web browser to see the application entry point.
 
