@@ -51,8 +51,20 @@ $mensaje = $_GET['error'] ?? '';
                             <input type="text" class="form-control" name="codigo_postal" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Licencia</label>
-                            <input type="text" class="form-control" name="licencia" required>
+                            <label class="form-label">Categoría de licencia</label>
+                            <input type="text" class="form-control" name="categoria" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Número de licencia</label>
+                            <input type="text" class="form-control" name="numero" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha de expedición</label>
+                            <input type="date" class="form-control" name="fecha_expedicion" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha de vencimiento</label>
+                            <input type="date" class="form-control" name="fecha_vencimiento" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
