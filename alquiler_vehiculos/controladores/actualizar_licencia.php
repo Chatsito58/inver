@@ -4,6 +4,9 @@ session_start();
 require_once '../modelos/conexion.php';
 require_once '../includes/csrf.php';
 
+// Instanciar conexión
+$pdo = Conexion::getPDO();
+
 if (!isset($_SESSION['id_cliente']) || !validarToken($_POST['csrf_token'] ?? '')) {
     header('Location: /cliente/perfil.php?error=Acceso%20no%20autorizado');
     exit;
