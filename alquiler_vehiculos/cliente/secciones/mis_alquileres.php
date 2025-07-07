@@ -1,3 +1,2 @@
-<?php
-// Placeholder for mis_alquileres.php
+<p>Sección: Mis alquileres (contenido en construcción).</p>
 

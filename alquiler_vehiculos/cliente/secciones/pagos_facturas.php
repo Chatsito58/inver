@@ -1,3 +1,2 @@
-<?php
-// Placeholder for pagos_facturas.php
+<p>Sección: Pagos y facturas (contenido en construcción).</p>
 
