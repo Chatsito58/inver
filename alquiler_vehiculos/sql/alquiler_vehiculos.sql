@@ -88,6 +88,15 @@ CREATE TABLE pago (
   fecha_pago DATE
 );
 
+-- Registro de los eventos de pago realizados por los clientes
+CREATE TABLE pago_evento (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_abono INT,
+  id_medio_pago INT,
+  id_usuario INT,
+  fecha_evento TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE proveedor (
   id_proveedor INT PRIMARY KEY,
   ubicacion VARCHAR(255),
