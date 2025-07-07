@@ -7,7 +7,9 @@ require_once '../includes/csrf.php';
 // Instanciar conexión
 $pdo = Conexion::getPDO();
 
-if (!isset($_SESSION['id_cliente']) || !validarToken($_POST['csrf_token'] ?? '')) {
+if (!isset($_SESSION['id_cliente']) ||
+    ($_SESSION['rol'] ?? '') !== 'cliente' ||
+    !validarToken($_POST['csrf_token'] ?? '')) {
     header('Location: /cliente/perfil.php?error=Acceso%20no%20autorizado');
     exit;
 }
@@ -22,7 +24,7 @@ if ($categoria === '' || $numero === '' || $fechaExp === '' || $fechaVenc === ''
     exit;
 }
 
-if ($fechaExp > $fechaVenc) {
+if (strtotime($fechaExp) > strtotime($fechaVenc)) {
     header('Location: /cliente/perfil.php?error=La%20fecha%20de%20expedicion%20no%20puede%20ser%20posterior%20a%20la%20de%20vencimiento');
     exit;
 }
