@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
+require_once 'includes/csrf.php';
 $mensaje = $_GET['error'] ?? '';
 ?>
 
@@ -28,6 +29,7 @@ $mensaje = $_GET['error'] ?? '';
           <?php endif; ?>
 
           <form method="POST" action="controladores/validar_login.php">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generarToken()); ?>">
             <div class="mb-3">
               <label for="correo" class="form-label">Correo electrónico</label>
               <input type="email" class="form-control" id="correo" name="correo" required>
