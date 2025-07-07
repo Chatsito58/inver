@@ -8,8 +8,12 @@ require_once 'includes/csrf.php';
 $pdo = Conexion::getPDO();
 
 if (!isset($_SESSION['id_cliente']) ||
-    ($_SESSION['rol'] ?? '') !== 'cliente' ||
-    !validarToken($_POST['csrf_token'] ?? '')) {
+    ($_SESSION['rol'] ?? '') !== 'cliente') {
+    header('Location: /public/login.php');
+    exit;
+}
+
+if (!validarToken($_POST['csrf_token'] ?? '')) {
     header('Location: /cliente/perfil.php?error=Acceso%20no%20autorizado');
     exit;
 }
