@@ -13,7 +13,11 @@ $licencia = [];
 
 if ($idCliente) {
     // Datos personales del usuario
-    $stmt = $pdo->prepare('SELECT numero_identificacion, CONCAT(nombre, " ", apellido) AS nombre_completo, telefono, email, direccion FROM usuario WHERE id_cliente = ?');
+    $stmt = $pdo->prepare(
+        'SELECT numero_identificacion, CONCAT(nombre, " ", apellido) AS nombre_completo,
+        telefono, email, direccion
+        FROM usuario WHERE id_usuario = ?'
+    );
     $stmt->execute([$idCliente]);
     $cliente = $stmt->fetch();
 
