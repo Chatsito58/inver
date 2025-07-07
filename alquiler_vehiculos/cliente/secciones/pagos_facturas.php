@@ -1,5 +1,10 @@
 <?php if (isset($_GET['pago'])): ?>
-    <div class="alert alert-success">El abono fue pagado correctamente.</div>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'El abono fue pagado correctamente.'
+        });
+    </script>
 <?php endif; ?>
 <p>Sección: Pagos y facturas (contenido en construcción).</p>
 
