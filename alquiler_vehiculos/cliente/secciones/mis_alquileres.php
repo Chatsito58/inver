@@ -10,6 +10,26 @@ $pdo = Conexion::getPDO();
 $alquileres = [];
 
 if ($idCliente) {
+    $condiciones = ['A.usuario_id = ?'];
+    $params = [$idCliente];
+
+    if (isset($_GET['fecha_inicio']) && $_GET['fecha_inicio'] !== '') {
+        $condiciones[] = 'A.fecha_inicio >= ?';
+        $params[] = $_GET['fecha_inicio'];
+    }
+
+    if (isset($_GET['estado']) && $_GET['estado'] !== '' && $_GET['estado'] !== 'Todos') {
+        $condiciones[] = 'A.estado = ?';
+        $params[] = $_GET['estado'];
+    }
+
+    if (isset($_GET['placa']) && $_GET['placa'] !== '') {
+        $condiciones[] = 'V.placa LIKE ?';
+        $params[] = '%' . $_GET['placa'] . '%';
+    }
+
+    $where = implode(' AND ', $condiciones);
+
     $sql = 'SELECT A.id,
                    V.placa,
                    V.modelo,
@@ -22,16 +42,51 @@ if ($idCliente) {
             JOIN vehiculo V ON V.placa = A.vehiculo_id
             JOIN sede S ON S.id = A.sede_id
             JOIN valor_alquiler VA ON VA.id = A.valor_alquiler_id
-           WHERE A.usuario_id = ?';
+           WHERE ' . $where;
 
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$idCliente]);
+    $stmt->execute($params);
     $alquileres = $stmt->fetchAll();
 }
+
+$hayFiltros = (
+    (isset($_GET['fecha_inicio']) && $_GET['fecha_inicio'] !== '') ||
+    (isset($_GET['estado']) && $_GET['estado'] !== '' && $_GET['estado'] !== 'Todos') ||
+    (isset($_GET['placa']) && $_GET['placa'] !== '')
+);
 ?>
 
+<form method="GET" class="row g-3 mb-3">
+    <div class="col-md-3">
+        <label class="form-label">Fecha desde</label>
+        <input type="date" name="fecha_inicio" class="form-control" value="<?php echo htmlspecialchars($_GET['fecha_inicio'] ?? ''); ?>">
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Estado</label>
+        <?php $estadoActual = $_GET['estado'] ?? 'Todos'; ?>
+        <select name="estado" class="form-select">
+            <option value="Todos"<?php echo ($estadoActual === 'Todos' || $estadoActual === '') ? ' selected' : ''; ?>>Todos</option>
+            <option value="Activo"<?php echo $estadoActual === 'Activo' ? ' selected' : ''; ?>>Activo</option>
+            <option value="Finalizado"<?php echo $estadoActual === 'Finalizado' ? ' selected' : ''; ?>>Finalizado</option>
+            <option value="Cancelado"<?php echo $estadoActual === 'Cancelado' ? ' selected' : ''; ?>>Cancelado</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Placa</label>
+        <input type="text" name="placa" class="form-control" value="<?php echo htmlspecialchars($_GET['placa'] ?? ''); ?>">
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary me-2">Filtrar</button>
+        <a href="?" class="btn btn-secondary">Limpiar</a>
+    </div>
+</form>
+
 <?php if (empty($alquileres)): ?>
-    <div class="alert alert-info">Aún no tienes alquileres registrados.</div>
+    <?php if ($hayFiltros): ?>
+        <div class="alert alert-warning">No se encontraron alquileres con los filtros seleccionados.</div>
+    <?php else: ?>
+        <div class="alert alert-info">Aún no tienes alquileres registrados.</div>
+    <?php endif; ?>
 <?php else: ?>
     <table class="table table-striped">
         <thead>
