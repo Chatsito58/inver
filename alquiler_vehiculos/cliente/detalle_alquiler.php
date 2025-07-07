@@ -59,9 +59,9 @@ if (!$alquiler) {
 
 <?php
 $abonoSql = 'SELECT AR.valor, AR.fecha, AR.estado
-             FROM Abono_reserva AR
-             JOIN Reserva_alquiler RA ON AR.id_reserva_alquiler = RA.id
-            WHERE RA.id_alquiler = ?';
+             FROM abono_reserva AR
+             JOIN reserva_alquiler RA ON AR.id_reserva_alquiler = RA.id
+             WHERE RA.id_alquiler = ?';
 $abonoStmt = $pdo->prepare($abonoSql);
 $abonoStmt->execute([$id_alquiler]);
 $abonos = $abonoStmt->fetchAll();

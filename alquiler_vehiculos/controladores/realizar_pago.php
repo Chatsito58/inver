@@ -26,12 +26,12 @@ $pdo = Conexion::getPDO();
 // Comprobar que el abono pertenece al cliente y que está pendiente
 $abonoStmt = $pdo->prepare(
     'SELECT AR.id
-       FROM Abono_reserva AR
-       JOIN Reserva_alquiler RA ON AR.id_reserva_alquiler = RA.id
-       JOIN Alquiler A ON RA.id_alquiler = A.id
-      WHERE AR.id = ?
-        AND AR.estado = "pendiente"
-        AND A.id_cliente = ?'
+       FROM abono_reserva AR
+       JOIN reserva_alquiler RA ON AR.id_reserva_alquiler = RA.id
+       JOIN alquiler A ON RA.id_alquiler = A.id
+       WHERE AR.id = ?
+         AND AR.estado = "pendiente"
+         AND A.id_cliente = ?'
 );
 $abonoStmt->execute([$idAbono, $idCliente]);
 $abono = $abonoStmt->fetch();
@@ -68,7 +68,7 @@ try {
 
     // Marcar el abono como pagado e indicar el medio utilizado
     $updateStmt = $pdo->prepare(
-        'UPDATE Abono_reserva SET estado = "pagado", id_medio_pago = ? WHERE id = ?'
+        'UPDATE abono_reserva SET estado = "pagado", id_medio_pago = ? WHERE id = ?'
     );
     $updateStmt->execute([$idMedioPago, $idAbono]);
 
