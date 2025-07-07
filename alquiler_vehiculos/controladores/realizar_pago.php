@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once '../modelos/conexion.php';
-require_once '../includes/csrf.php';
+require_once __DIR__ . '/../modelos/conexion.php';
+require_once __DIR__ . '/../includes/csrf.php';
 
 // Verificar sesion y token CSRF
 if (!isset($_SESSION['id_cliente']) ||
