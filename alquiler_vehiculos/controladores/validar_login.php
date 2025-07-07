@@ -12,18 +12,18 @@ if (empty($_POST['correo']) || empty($_POST['contrasena'])) {
 }
 
 $correo = $_POST['correo'];
-$contrasena = hash('sha256', $_POST['contrasena']);
+$contrasena = $_POST['contrasena'];
 
 // Buscar usuario y obtener rol real
 $sql = "SELECT u.id_usuario, u.contrasena, u.id_cliente, r.nombre AS rol
         FROM Usuario u
         INNER JOIN Rol r ON u.id_rol = r.id_rol
-        WHERE u.usuario = ? AND u.contrasena = ?";
+        WHERE u.usuario = ?";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$correo, $contrasena]);
+$stmt->execute([$correo]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($usuario) {
+if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
     $_SESSION['id_usuario'] = $usuario['id_usuario'];
     $_SESSION['rol'] = $usuario['rol'];
     

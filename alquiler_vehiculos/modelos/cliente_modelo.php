@@ -17,6 +17,9 @@ class ClienteModelo
     public static function crear(array $datos): int
     {
         $pdo = Conexion::getPDO();
+        if (isset($datos['contrasena'])) {
+            $datos['contrasena'] = password_hash($datos['contrasena'], PASSWORD_DEFAULT);
+        }
         $cols = array_keys($datos);
         $placeholders = implode(',', array_fill(0, count($cols), '?'));
         $sql = 'INSERT INTO usuario (' . implode(',', $cols) . ') VALUES (' . $placeholders . ')';
