@@ -1,9 +1,15 @@
 <?php
 session_start();
 require_once '../modelos/conexion.php';
+require_once '../includes/csrf.php';
 
 // Obtener instancia de PDO
 $pdo = Conexion::getPDO();
+
+if (!validarToken($_POST['csrf_token'] ?? '')) {
+    header('Location: ../login.php?error=Acceso%20no%20autorizado');
+    exit();
+}
 
 // Validar campos
 if (empty($_POST['correo']) || empty($_POST['contrasena'])) {
