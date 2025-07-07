@@ -26,13 +26,19 @@ if ($idCliente) {
 ?>
 
 <?php if (($_GET['actualizado'] ?? '') === '1'): ?>
-    <div class="alert alert-success">
-        Licencia actualizada
-    </div>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Licencia actualizada'
+        });
+    </script>
 <?php elseif (isset($_GET['error'])): ?>
-    <div class="alert alert-danger">
-        <?php echo htmlspecialchars($_GET['error']); ?>
-    </div>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: <?php echo json_encode($_GET['error']); ?>
+        });
+    </script>
 <?php endif; ?>
 
 <form method="POST" action="/controladores/actualizar_licencia.php">
@@ -88,7 +94,7 @@ if ($idCliente) {
         La fecha de expedición no puede ser posterior a la de vencimiento
     </div>
 
-    <button type="submit" class="btn btn-primary">Actualizar licencia</button>
+    <button type="submit" id="btnActualizarLicencia" class="btn btn-primary">Actualizar licencia</button>
 </form>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -109,5 +115,41 @@ document.addEventListener('DOMContentLoaded', function () {
             errorDiv.classList.add('d-none');
         }
     });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const btnLicencia = document.getElementById('btnActualizarLicencia');
+    const btnPago = document.getElementById('btnConfirmarPago');
+
+    const attachConfirm = function(button, title, text) {
+        if (!button) return;
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const form = button.closest('form');
+            if (!form) return;
+
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (typeof form.requestSubmit === 'function') {
+                        form.requestSubmit(button);
+                    } else {
+                        form.submit();
+                    }
+                }
+            });
+        });
+    };
+
+    attachConfirm(btnLicencia, '¿Actualizar licencia?', 'Se guardarán los cambios de la licencia');
+    attachConfirm(btnPago, '¿Confirmar pago?', 'Se procederá con el pago seleccionado');
 });
 </script>
