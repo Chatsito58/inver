@@ -25,7 +25,13 @@ $pdo = Conexion::getPDO();
 
 // Comprobar que el abono pertenece al cliente y que está pendiente
 $abonoStmt = $pdo->prepare(
-    "SELECT id FROM abono WHERE id = ? AND id_cliente = ? AND (estado = 'pendiente' OR pagado = 0)"
+    'SELECT AR.id
+       FROM Abono_reserva AR
+       JOIN Reserva_alquiler RA ON AR.id_reserva_alquiler = RA.id
+       JOIN Alquiler A ON RA.id_alquiler = A.id
+      WHERE AR.id = ?
+        AND AR.estado = "pendiente"
+        AND A.id_cliente = ?'
 );
 $abonoStmt->execute([$idAbono, $idCliente]);
 $abono = $abonoStmt->fetch();
