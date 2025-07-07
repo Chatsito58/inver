@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['id_cliente']) || ($_SESSION['rol'] ?? '') !== 'cliente') {
-    header('Location: /login.php');
+    header('Location: /public/login.php');
     exit;
 }
 
