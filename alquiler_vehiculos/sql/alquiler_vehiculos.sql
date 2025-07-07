@@ -180,6 +180,21 @@ CREATE TABLE usuario (
   tipo_usuario_id INT
 );
 
+CREATE TABLE Rol (
+  id_rol INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50)
+);
+
+CREATE TABLE Usuario (
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+  usuario VARCHAR(255) UNIQUE,
+  contrasena VARCHAR(255),
+  id_cliente INT,
+  id_rol INT,
+  FOREIGN KEY (id_cliente) REFERENCES usuario(id),
+  FOREIGN KEY (id_rol) REFERENCES Rol(id_rol)
+);
+
 CREATE TABLE valor_alquiler (
   id INT PRIMARY KEY,
   valor_vehiculo INT,
