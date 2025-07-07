@@ -26,3 +26,12 @@ This repository contains a basic directory structure for the **Alquiler Vehiculo
 3. Visit `http://localhost:8000` in your web browser to see the application entry point.
 
 More application logic will be added to these directories as development continues.
+
+## Running tests
+
+Install dependencies with Composer and execute PHPUnit:
+
+```bash
+composer install
+vendor/bin/phpunit
+```
