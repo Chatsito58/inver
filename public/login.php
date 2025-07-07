@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../cliente/modelos/cliente_modelo.php';
 
 function buscarUsuarioPorEmail($email) {
     $servidores = [
@@ -29,7 +30,7 @@ function buscarUsuarioPorEmail($email) {
                 ]
             );
 
-            $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = ?");
+            $stmt = $pdo->prepare("SELECT u.*, u.password AS hashed_password FROM usuario u WHERE u.email = ?");
             $stmt->execute([$email]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -48,8 +49,9 @@ function buscarUsuarioPorEmail($email) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
+    $clave = $_POST['password'];
 
-    $resultado = buscarUsuarioPorEmail($email);
+    $resultado = ClienteModelo::verificarCredenciales($email, $clave);
 
     if ($resultado) {
         $_SESSION['usuario'] = $resultado['usuario'];
@@ -62,10 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             default: echo "Tipo de usuario desconocido."; exit;
         }
 
-
         exit;
     } else {
-        $error = "Correo no encontrado.";
+        $error = "Credenciales incorrectas.";
     }
 }
 ?>
@@ -85,6 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="mb-3">
             <label for="email">Correo:</label>
             <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="password">Contraseña:</label>
+            <input type="password" name="password" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">Ingresar</button>
     </form>
