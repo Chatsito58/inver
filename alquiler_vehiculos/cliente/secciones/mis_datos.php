@@ -26,13 +26,19 @@ if ($idCliente) {
 ?>
 
 <?php if (($_GET['actualizado'] ?? '') === '1'): ?>
-    <div class="alert alert-success">
-        Licencia actualizada
-    </div>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Licencia actualizada'
+        });
+    </script>
 <?php elseif (isset($_GET['error'])): ?>
-    <div class="alert alert-danger">
-        <?php echo htmlspecialchars($_GET['error']); ?>
-    </div>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: <?php echo json_encode($_GET['error']); ?>
+        });
+    </script>
 <?php endif; ?>
 
 <form method="POST" action="/controladores/actualizar_licencia.php">
