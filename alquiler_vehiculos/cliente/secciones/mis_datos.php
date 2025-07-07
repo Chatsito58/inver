@@ -15,7 +15,7 @@ if ($idCliente) {
     $cliente = $stmt->fetch();
 
     // Datos de la licencia y su categoría
-    $licenciaQuery = 'SELECT l.numero, l.fecha_expedicion, l.fecha_vencimiento, c.nombre_categoria FROM licencia l LEFT JOIN categoria c ON c.id_licencia = l.id WHERE l.Id_usuario = ?';
+    $licenciaQuery = 'SELECT l.numero, l.fecha_expedicion, l.fecha_vencimiento,  c.nombre_categoria FROM licencia l LEFT JOIN categoria c ON c.id_licencia = l.id WHERE l.id_usuario = ?';
     $stmt = $pdo->prepare($licenciaQuery);
     $stmt->execute([$idCliente]);
     $licencia = $stmt->fetch();
