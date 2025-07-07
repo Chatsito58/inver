@@ -78,10 +78,16 @@ $abonos = $abonoStmt->fetchAll();
         </thead>
         <tbody>
         <?php foreach ($abonos as $abono): ?>
+            <?php
+                $estadoAbono = strtolower($abono['estado'] ?? '');
+                $color = $estadoAbono === 'finalizado'
+                    ? 'success'
+                    : ($estadoAbono === 'activo' ? 'warning' : 'secondary');
+            ?>
             <tr>
                 <td><?php echo htmlspecialchars($abono['valor']); ?></td>
                 <td><?php echo htmlspecialchars($abono['fecha']); ?></td>
-                <td><?php echo htmlspecialchars($abono['estado']); ?></td>
+                <td><span class="badge bg-<?php echo $color; ?>"><?php echo htmlspecialchars($abono['estado']); ?></span></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -100,8 +106,14 @@ $factura = $facturaStmt->fetch();
         <div class="card-header">Factura</div>
         <div class="card-body">
             <p><strong>ID:</strong> <?php echo htmlspecialchars($factura['id']); ?></p>
+            <?php
+                $estadoFactura = strtolower($factura['estado'] ?? '');
+                $color = $estadoFactura === 'finalizado'
+                    ? 'success'
+                    : ($estadoFactura === 'activo' ? 'warning' : 'secondary');
+            ?>
             <p><strong>Total:</strong> <?php echo htmlspecialchars($factura['total']); ?></p>
-            <p><strong>Estado:</strong> <?php echo htmlspecialchars($factura['estado']); ?></p>
+            <p><strong>Estado:</strong> <span class="badge bg-<?php echo $color; ?>"><?php echo htmlspecialchars($factura['estado']); ?></span></p>
         </div>
     </div>
     <?php endif; ?>
