@@ -126,7 +126,7 @@ $hayFiltros = (
                 <td><?php echo htmlspecialchars($a['valor_total']); ?></td>
                 <td>
                     <a class="btn btn-sm btn-primary" href="/cliente/detalle_alquiler.php?id=<?php echo urlencode($a['id']); ?>">
-                        Ver
+                        <i class="bi bi-eye"></i> Ver
                     </a>
                 </td>
             </tr>

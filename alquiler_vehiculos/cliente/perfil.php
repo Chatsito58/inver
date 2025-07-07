@@ -15,17 +15,17 @@ require_once '../includes/nav_cliente.php';
     <ul class="nav nav-tabs" id="perfilTabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="datos-tab" data-bs-toggle="tab" data-bs-target="#datos" type="button" role="tab" aria-controls="datos" aria-selected="true">
-                Mis datos
+                <i class="bi bi-person"></i> Mis datos
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos" type="button" role="tab" aria-controls="pagos" aria-selected="false">
-                Pagos y facturas
+                <i class="bi bi-cash-coin"></i> Pagos y facturas
             </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="alquileres-tab" data-bs-toggle="tab" data-bs-target="#alquileres" type="button" role="tab" aria-controls="alquileres" aria-selected="false">
-                Mis alquileres
+                <i class="bi bi-car-front"></i> Mis alquileres
             </button>
         </li>
     </ul>
