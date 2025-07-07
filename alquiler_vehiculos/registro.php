@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/csrf.php';
+require_once __DIR__ . '/includes/csrf.php';
 $mensaje = $_GET['error'] ?? '';
 ?>
 <!DOCTYPE html>

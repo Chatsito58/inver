@@ -1,5 +1,5 @@
 <?php
-require_once 'modelos/vehiculo_modelo.php';
+require_once __DIR__ . '/../modelos/vehiculo_modelo.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['placa'])) {

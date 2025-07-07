@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once'modelos/conexion.php';
-require_once'includes/csrf.php';
+require_once __DIR__ . '/../modelos/conexion.php';
+require_once __DIR__ . '/../includes/csrf.php';
 
 // Obtener instancia de PDO con manejo de errores
 try {

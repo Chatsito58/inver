@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'includes/header.php';
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <div class="container mt-5">
     <h1>Panel de Empleado</h1>

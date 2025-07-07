@@ -1,13 +1,9 @@
 <?php
 session_start();
 
-<<<<<<< HEAD
-require_once 'modelos/conexion.php';
-require_once 'includes/csrf.php';
-=======
+
 require_once __DIR__ . '/../modelos/conexion.php';
 require_once __DIR__ . '/../includes/csrf.php';
->>>>>>> 8d02ac62080603dd5692250635e759bb6cfb8167
 
 // Verificar sesion y token CSRF
 if (!isset($_SESSION['id_cliente']) ||

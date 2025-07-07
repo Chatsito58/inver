@@ -10,11 +10,8 @@
  * - obtenerTodos(): array    Devuelve todos los alquileres.
  */
 
-<<<<<<< HEAD
-require_once 'modelos/conexion.php';
-=======
+
 require_once __DIR__ . '/conexion.php';
->>>>>>> 8d02ac62080603dd5692250635e759bb6cfb8167
 
 class AlquilerModelo
 {

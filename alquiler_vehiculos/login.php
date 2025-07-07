@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-require_once 'includes/csrf.php';
+require_once __DIR__ . '/includes/csrf.php';
 
 $mensajeError = $_GET['error'] ?? '';
 $mensajeInfo  = $_GET['mensaje'] ?? '';
