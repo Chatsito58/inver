@@ -18,12 +18,16 @@ $correo         = trim($_POST['correo'] ?? '');
 $telefono       = trim($_POST['telefono'] ?? '');
 $direccion      = trim($_POST['direccion'] ?? '');
 $codigoPostal   = trim($_POST['codigo_postal'] ?? '');
-$licencia       = trim($_POST['licencia'] ?? '');
+$categoria      = trim($_POST['categoria'] ?? '');
+$licenciaNumero = trim($_POST['numero'] ?? '');
+$fechaExp       = $_POST['fecha_expedicion'] ?? '';
+$fechaVenc      = $_POST['fecha_vencimiento'] ?? '';
 $contrasena1    = $_POST['contrasena'] ?? '';
 $contrasena2    = $_POST['contrasena2'] ?? '';
 
 if ($nombre === '' || $tipoDocumento === '' || $documento === '' || $correo === '' ||
-    $telefono === '' || $direccion === '' || $codigoPostal === '' || $licencia === '' ||
+    $telefono === '' || $direccion === '' || $codigoPostal === '' || $categoria === '' ||
+    $licenciaNumero === '' || $fechaExp === '' || $fechaVenc === '' ||
     $contrasena1 === '' || $contrasena2 === '') {
     header('Location: ../registro.php?error=Todos%20los%20campos%20son%20obligatorios');
     exit();
@@ -31,6 +35,11 @@ if ($nombre === '' || $tipoDocumento === '' || $documento === '' || $correo === 
 
 if ($contrasena1 !== $contrasena2) {
     header('Location: ../registro.php?error=Las%20contrase%C3%B1as%20no%20coinciden');
+    exit();
+}
+
+if (strtotime($fechaExp) > strtotime($fechaVenc)) {
+    header('Location: ../registro.php?error=La%20fecha%20de%20expedici%C3%B3n%20no%20puede%20ser%20posterior%20a%20la%20de%20vencimiento');
     exit();
 }
 
@@ -44,18 +53,28 @@ if ($stmt->fetch()) {
 try {
     $pdo->beginTransaction();
 
-    $clienteStmt = $pdo->prepare('INSERT INTO usuario (numero_identificacion, nombre, apellido, email, telefono, direccion, codigo_postal) VALUES (?, ?, ?, ?, ?, ?, ?)');
-    $clienteStmt->execute([$documento, $nombre, '', $correo, $telefono, $direccion, $codigoPostal]);
-    $idCliente = (int)$pdo->lastInsertId();
-
+    // Obtener id del rol de cliente
     $rolStmt = $pdo->prepare('SELECT id_rol FROM rol WHERE nombre = ?');
     $rolStmt->execute(['cliente']);
     $rol = $rolStmt->fetch();
     $idRol = $rol['id_rol'] ?? null;
 
-    $usuarioStmt = $pdo->prepare('INSERT INTO usuario (usuario, contrasena, id_cliente, id_rol) VALUES (?, ?, ?, ?)');
-    $usuarioStmt->execute([$correo, password_hash($contrasena1, PASSWORD_DEFAULT), $idCliente, $idRol]);
+    // Insertar usuario completo en una sola fila
+    $usuarioStmt = $pdo->prepare('INSERT INTO usuario (numero_identificacion, nombre, apellido, email, telefono, direccion, codigo_postal, usuario, contrasena, id_rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    $usuarioStmt->execute([$documento, $nombre, '', $correo, $telefono, $direccion, $codigoPostal, $correo, password_hash($contrasena1, PASSWORD_DEFAULT), $idRol]);
+    $idUsuario = (int)$pdo->lastInsertId();
 
+    // Asignar id_cliente para mantener compatibilidad
+    $pdo->prepare('UPDATE usuario SET id_cliente = ? WHERE id_usuario = ?')->execute([$idUsuario, $idUsuario]);
+
+    // Crear registro de licencia
+    $licStmt = $pdo->prepare('INSERT INTO licencia (numero, fecha_expedicion, fecha_vencimiento, estado, id_usuario) VALUES (?, ?, ?, ?, ?)');
+    $licStmt->execute([$licenciaNumero, $fechaExp, $fechaVenc, 'activo', $idUsuario]);
+    $idLicencia = (int)$pdo->lastInsertId();
+
+    // Registrar categoría inicial si aplica
+    $catStmt = $pdo->prepare('INSERT INTO categoria (nombre_categoria, id_licencia) VALUES (?, ?)');
+    $catStmt->execute([$categoria, $idLicencia]);
 
     $pdo->commit();
 
