@@ -81,6 +81,30 @@ if ($idCliente) {
             <input type="date" name="fecha_vencimiento" class="form-control" value="<?php echo htmlspecialchars($licencia['fecha_vencimiento'] ?? ''); ?>">
         </div>
     </div>
+    <div id="fecha-error" class="alert alert-danger d-none" role="alert">
+        La fecha de expedición no puede ser posterior a la de vencimiento
+    </div>
 
     <button type="submit" class="btn btn-primary">Actualizar licencia</button>
 </form>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form[action="/controladores/actualizar_licencia.php"]');
+    if (!form) return;
+
+    const fechaExp = form.querySelector('input[name="fecha_expedicion"]');
+    const fechaVenc = form.querySelector('input[name="fecha_vencimiento"]');
+    const errorDiv = document.getElementById('fecha-error');
+
+    form.addEventListener('submit', function (e) {
+        if (fechaExp.value && fechaVenc.value && fechaExp.value > fechaVenc.value) {
+            e.preventDefault();
+            if (errorDiv) {
+                errorDiv.classList.remove('d-none');
+            }
+        } else if (errorDiv) {
+            errorDiv.classList.add('d-none');
+        }
+    });
+});
+</script>
