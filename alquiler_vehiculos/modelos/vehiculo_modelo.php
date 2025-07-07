@@ -1,7 +1,7 @@
 <?php
 class VehiculoModelo {
     private static function getPDO() {
-        require_once '../modelos/conexion.php';
+        require_once __DIR__ . '/conexion.php';
         return Conexion::getPDO();
     }
 
