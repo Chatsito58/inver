@@ -56,6 +56,7 @@ try {
     $usuarioStmt = $pdo->prepare('INSERT INTO usuario (usuario, contrasena, id_cliente, id_rol) VALUES (?, ?, ?, ?)');
     $usuarioStmt->execute([$correo, password_hash($contrasena1, PASSWORD_DEFAULT), $idCliente, $idRol]);
 
+
     $pdo->commit();
 
     header('Location: ../login.php?mensaje=Cuenta%20creada');

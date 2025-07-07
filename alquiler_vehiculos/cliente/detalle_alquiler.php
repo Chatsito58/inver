@@ -30,7 +30,7 @@ $detalleSql = 'SELECT A.id,
               JOIN sede S ON S.id = A.sede_id
               JOIN valor_alquiler VA ON VA.id = A.valor_alquiler_id
              WHERE A.id = ?
-               AND A.usuario_id = ?';
+               AND A.id_cliente = ?';
 
 $detalleStmt = $pdo->prepare($detalleSql);
 $detalleStmt->execute([$id_alquiler, $_SESSION['id_cliente']]);

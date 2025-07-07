@@ -10,7 +10,7 @@ $pdo = Conexion::getPDO();
 $alquileres = [];
 
 if ($idCliente) {
-    $condiciones = ['A.usuario_id = ?'];
+    $condiciones = ['A.id_cliente = ?'];
     $params = [$idCliente];
 
     if (isset($_GET['fecha_inicio']) && $_GET['fecha_inicio'] !== '') {

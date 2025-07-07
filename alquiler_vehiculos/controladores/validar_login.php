@@ -17,7 +17,7 @@ if (empty($_POST['correo']) || empty($_POST['contrasena'])) {
     exit();
 }
 
-$correo = $_POST['correo'];
+$usuarioInput = $_POST['correo'];
 $contrasena = $_POST['contrasena'];
 
 // Buscar usuario y obtener rol real
@@ -26,7 +26,7 @@ $sql = "SELECT u.id_usuario, u.contrasena, u.id_cliente, r.nombre AS rol
         INNER JOIN rol r ON u.id_rol = r.id_rol
         WHERE u.usuario = ?";
 $stmt = $pdo->prepare($sql);
-$stmt->execute([$correo]);
+$stmt->execute([$usuarioInput]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
