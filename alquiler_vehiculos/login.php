@@ -39,6 +39,9 @@ $mensaje = $_GET['error'] ?? '';
               <input type="password" class="form-control" id="contrasena" name="contrasena" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            <div class="text-center mt-3">
+              <a href="registro.php" class="btn btn-link">Crear cuenta</a>
+            </div>
           </form>
         </div>
       </div>
