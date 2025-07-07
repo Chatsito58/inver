@@ -12,8 +12,8 @@ class Conexion
     /** @var string Datos de conexión */
     private static string $host = 'localhost';
     private static string $db   = 'alquiler_vehiculos';
-    private static string $user = 'root';
-    private static string $pass = '';
+    private static string $user = 'clienteweb';
+    private static string $pass = '1234';
     private static string $charset = 'utf8mb4';
 
     /** @var PDO|null Instancia de PDO reutilizable */
