@@ -14,8 +14,9 @@ CREATE TABLE tipo_usuario (
 );
 
 CREATE TABLE usuario (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
   numero_identificacion VARCHAR(20),
+  usuario VARCHAR(255),
   nombre VARCHAR(255),
   apellido VARCHAR(255),
   email VARCHAR(255),
@@ -63,8 +64,10 @@ CREATE TABLE alquiler (
   fecha_fin DATE,
   valor_alquiler_id INT,
   sede_id INT,
+  estado VARCHAR(20),
+  id_cliente INT,
   FOREIGN KEY (vehiculo_id) REFERENCES vehiculo(placa),
-  FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+  FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
   FOREIGN KEY (valor_alquiler_id) REFERENCES valor_alquiler(id),
   FOREIGN KEY (sede_id) REFERENCES sede(id)
 );
@@ -105,7 +108,9 @@ CREATE TABLE estado_vehiculo (
 CREATE TABLE factura (
   id INT PRIMARY KEY,
   fecha_emision DATE,
-  alquiler_id INT
+  alquiler_id INT,
+  total DECIMAL(10,2),
+  estado VARCHAR(20)
 );
 
 CREATE TABLE licencia (
@@ -126,7 +131,8 @@ CREATE TABLE mantenimiento (
 
 CREATE TABLE medio_pago (
   id INT PRIMARY KEY,
-  descripcion VARCHAR(255)
+  descripcion VARCHAR(255),
+  id_cliente INT
 );
 
 CREATE TABLE multa (
@@ -141,7 +147,11 @@ CREATE TABLE pago (
   id INT PRIMARY KEY,
   monto DECIMAL(10,2),
   factura_id INT,
-  fecha_pago DATE
+  fecha_pago DATE,
+  id_abono INT,
+  id_medio_pago INT,
+  FOREIGN KEY (id_abono) REFERENCES abono_reserva(id),
+  FOREIGN KEY (id_medio_pago) REFERENCES medio_pago(id)
 );
 
 CREATE TABLE proveedor (
@@ -187,7 +197,7 @@ CREATE TABLE pago_evento (
   fecha_evento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (id_abono) REFERENCES abono_reserva(id),
   FOREIGN KEY (id_medio_pago) REFERENCES medio_pago(id),
-  FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+  FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
 
 CREATE TABLE servicios_incluidos (
