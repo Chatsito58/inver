@@ -3,8 +3,8 @@
 $idCliente = $_SESSION['id_cliente'] ?? null;
 
 
-require_once __DIR__ . '/../../modelos/conexion.php';
-require_once __DIR__ . '/../../includes/csrf.php';
+require_once __DIR__ . '/../modelos/conexion.php';
+require_once __DIR__ . '/../includes/csrf.php';
 
 // Obtener instancia de PDO
 $pdo = Conexion::getPDO();

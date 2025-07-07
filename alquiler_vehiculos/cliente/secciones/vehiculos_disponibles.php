@@ -1,5 +1,5 @@
 <?php
-require_once 'modelos/vehiculo_modelo.php';
+require_once __DIR__ . '/../modelos/vehiculo_modelo.php';
 
 // Obtener la lista de vehículos directamente desde el modelo
 $vehiculos = [];
