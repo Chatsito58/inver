@@ -60,9 +60,11 @@ try {
     );
     $pagoStmt->execute([$idAbono, $idMedioPago]);
 
-    // Marcar el abono como pagado
-    $updateStmt = $pdo->prepare('UPDATE abono SET pagado = 1 WHERE id = ?');
-    $updateStmt->execute([$idAbono]);
+    // Marcar el abono como pagado e indicar el medio utilizado
+    $updateStmt = $pdo->prepare(
+        'UPDATE Abono_reserva SET estado = "pagado", id_medio_pago = ? WHERE id_abono = ?'
+    );
+    $updateStmt->execute([$idMedioPago, $idAbono]);
 
     $pdo->commit();
 
