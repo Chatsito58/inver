@@ -106,14 +106,9 @@ $hayFiltros = (
         <?php foreach ($alquileres as $a): ?>
             <?php
                 $estado = strtolower($a['estado'] ?? '');
-                $color = 'secondary';
-                if ($estado === 'finalizado') {
-                    $color = 'success';
-                } elseif ($estado === 'activo') {
-                    $color = 'warning';
-                } elseif ($estado === 'cancelado') {
-                    $color = 'secondary';
-                }
+                $color = $estado === 'finalizado'
+                    ? 'success'
+                    : ($estado === 'activo' ? 'warning' : 'secondary');
             ?>
             <tr>
                 <td><?php echo htmlspecialchars($a['id']); ?></td>
