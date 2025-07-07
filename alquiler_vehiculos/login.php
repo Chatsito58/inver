@@ -4,8 +4,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-require_once 'includes/csrf.php';
-$mensaje = $_GET['error'] ?? '';
+require_once __DIR__ . '/includes/csrf.php';
+
+$mensajeError = $_GET['error'] ?? '';
+$mensajeInfo  = $_GET['mensaje'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -24,8 +26,10 @@ $mensaje = $_GET['error'] ?? '';
         <div class="card-body">
           <h3 class="text-center mb-4">Iniciar Sesión</h3>
           
-          <?php if ($mensaje): ?>
-            <div class="alert alert-danger"><?php echo htmlspecialchars($mensaje); ?></div>
+          <?php if ($mensajeError): ?>
+            <div class="alert alert-danger"><?php echo htmlspecialchars($mensajeError); ?></div>
+          <?php elseif ($mensajeInfo): ?>
+            <div class="alert alert-success"><?php echo htmlspecialchars($mensajeInfo); ?></div>
           <?php endif; ?>
 
           <form method="POST" action="controladores/validar_login.php">
