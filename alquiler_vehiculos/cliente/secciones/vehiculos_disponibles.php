@@ -1,9 +1,10 @@
 <?php
-// Obtener la lista de vehículos desde el controlador (usando una petición interna)
+require_once __DIR__ . '/../../modelos/vehiculo_modelo.php';
+
+// Obtener la lista de vehículos directamente desde el modelo
 $vehiculos = [];
 try {
-    $json = file_get_contents('../controladores/vehiculo_controlador.php');
-    $vehiculos = json_decode($json, true);
+    $vehiculos = VehiculoModelo::obtenerTodos();
 } catch (Exception $e) {
     $vehiculos = [];
 }
