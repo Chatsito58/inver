@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-require_once '../modelos/conexion.php';
-require_once '../includes/csrf.php';
+require_once 'modelos/conexion.php';
+require_once 'includes/csrf.php';
 
 $pdo = Conexion::getPDO();
 
 if (!validarToken($_POST['csrf_token'] ?? '')) {
-    header('Location: ../registro.php?error=Acceso%20no%20autorizado');
+    header('Location: registro.php?error=Acceso%20no%20autorizado');
     exit();
 }
 
@@ -29,24 +29,24 @@ if ($nombre === '' || $tipoDocumento === '' || $documento === '' || $correo === 
     $telefono === '' || $direccion === '' || $codigoPostal === '' || $categoria === '' ||
     $licenciaNumero === '' || $fechaExp === '' || $fechaVenc === '' ||
     $contrasena1 === '' || $contrasena2 === '') {
-    header('Location: ../registro.php?error=Todos%20los%20campos%20son%20obligatorios');
+    header('Location: registro.php?error=Todos%20los%20campos%20son%20obligatorios');
     exit();
 }
 
 if ($contrasena1 !== $contrasena2) {
-    header('Location: ../registro.php?error=Las%20contrase%C3%B1as%20no%20coinciden');
+    header('Location: registro.php?error=Las%20contrase%C3%B1as%20no%20coinciden');
     exit();
 }
 
 if (strtotime($fechaExp) > strtotime($fechaVenc)) {
-    header('Location: ../registro.php?error=La%20fecha%20de%20expedici%C3%B3n%20no%20puede%20ser%20posterior%20a%20la%20de%20vencimiento');
+    header('Location: registro.php?error=La%20fecha%20de%20expedici%C3%B3n%20no%20puede%20ser%20posterior%20a%20la%20de%20vencimiento');
     exit();
 }
 
 $stmt = $pdo->prepare('SELECT 1 FROM usuario WHERE usuario = ?');
 $stmt->execute([$correo]);
 if ($stmt->fetch()) {
-    header('Location: ../registro.php?error=El%20correo%20ya%20existe');
+    header('Location: registro.php?error=El%20correo%20ya%20existe');
     exit();
 }
 
@@ -78,10 +78,10 @@ try {
 
     $pdo->commit();
 
-    header('Location: ../login.php?mensaje=Cuenta%20creada');
+    header('Location: login.php?mensaje=Cuenta%20creada');
     exit();
 } catch (PDOException $e) {
     $pdo->rollBack();
-    header('Location: ../registro.php?error=Error%20al%20registrar%20el%20usuario');
+    header('Location: registro.php?error=Error%20al%20registrar%20el%20usuario');
     exit();
 }

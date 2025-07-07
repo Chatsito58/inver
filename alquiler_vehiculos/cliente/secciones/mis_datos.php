@@ -2,8 +2,8 @@
 // Obtener ID del cliente desde la sesión
 $idCliente = $_SESSION['id_cliente'] ?? null;
 
-require_once '../modelos/conexion.php';
-require_once '../includes/csrf.php';
+require_once 'modelos/conexion.php';
+require_once 'includes/csrf.php';
 
 // Obtener instancia de PDO
 $pdo = Conexion::getPDO();

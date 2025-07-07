@@ -13,7 +13,7 @@ if (!isset($_GET['id'])) {
 
 $id_alquiler = (int) $_GET['id'];
 
-require_once '../modelos/conexion.php';
+require_once 'modelos/conexion.php';
 
 $pdo = Conexion::getPDO();
 
@@ -36,12 +36,12 @@ $detalleStmt = $pdo->prepare($detalleSql);
 $detalleStmt->execute([$id_alquiler, $_SESSION['id_cliente']]);
 $alquiler = $detalleStmt->fetch();
 
-require_once '../includes/header.php';
-require_once '../includes/nav_cliente.php';
+require_once 'includes/header.php';
+require_once 'includes/nav_cliente.php';
 
 if (!$alquiler) {
     echo '<div class="container mt-4"><div class="alert alert-danger">Acceso no autorizado o alquiler no encontrado.</div></div>';
-    require_once '../includes/footer.php';
+    require_once 'includes/footer.php';
     return;
 }
 
@@ -120,4 +120,4 @@ $factura = $facturaStmt->fetch();
     <a class="btn btn-secondary mt-4" href="/cliente/perfil.php">Volver</a>
 </div>
 <?php
-require_once '../includes/footer.php';
+require_once 'includes/footer.php';

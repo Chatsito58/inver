@@ -10,7 +10,7 @@
  * - obtenerTodos(): array
  */
 
-require_once '../modelos/conexion.php';
+require_once 'modelos/conexion.php';
 
 class PagoModelo
 {

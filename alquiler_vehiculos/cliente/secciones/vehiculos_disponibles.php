@@ -1,5 +1,5 @@
 <?php
-require_once '../modelos/vehiculo_modelo.php';
+require_once 'modelos/vehiculo_modelo.php';
 
 // Obtener la lista de vehículos directamente desde el modelo
 $vehiculos = [];
@@ -9,7 +9,7 @@ try {
     $vehiculos = [];
 }
 ?>
-<?php include '../../includes/header.php'; ?>
+<?php include 'includes/header.php'; ?>
 <div class="container mt-5">
     <h2 class="mb-4">Vehículos Disponibles</h2>
     <?php if (empty($vehiculos)): ?>
@@ -39,4 +39,4 @@ try {
     </table>
     <?php endif; ?>
 </div>
-<?php include '../../includes/footer.php'; ?> 
+<?php include 'includes/footer.php'; ?> 

@@ -6,8 +6,8 @@ if (!isset($_SESSION['id_cliente']) || ($_SESSION['rol'] ?? '') !== 'cliente') {
     exit;
 }
 
-require_once '../includes/header.php';
-require_once '../includes/nav_cliente.php';
+require_once 'includes/header.php';
+require_once 'includes/nav_cliente.php';
 
 ?>
 
@@ -43,5 +43,5 @@ require_once '../includes/nav_cliente.php';
 </div>
 
 <?php
-require_once '../includes/footer.php';
+require_once 'includes/footer.php';
 
