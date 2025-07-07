@@ -22,9 +22,9 @@ $contrasena = $_POST['contrasena'];
 
 // Buscar usuario y obtener rol real
 $sql = "SELECT u.id_usuario, u.contrasena, u.id_cliente, r.nombre AS rol
-        FROM Usuario u
-        INNER JOIN Rol r ON u.id_rol = r.id_rol
-        WHERE u.usuario = ? AND u.estado = 'activo'";
+        FROM usuario u
+        INNER JOIN rol r ON u.id_rol = r.id_rol
+        WHERE u.usuario = ?";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$usuarioInput]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -34,7 +34,7 @@ if ($contrasena1 !== $contrasena2) {
     exit();
 }
 
-$stmt = $pdo->prepare('SELECT 1 FROM Usuario WHERE usuario = ?');
+$stmt = $pdo->prepare('SELECT 1 FROM usuario WHERE usuario = ?');
 $stmt->execute([$correo]);
 if ($stmt->fetch()) {
     header('Location: ../registro.php?error=El%20correo%20ya%20existe');
@@ -48,13 +48,14 @@ try {
     $clienteStmt->execute([$documento, $nombre, '', $correo, $telefono, $direccion, $codigoPostal]);
     $idCliente = (int)$pdo->lastInsertId();
 
-    $rolStmt = $pdo->prepare('SELECT id_rol FROM Rol WHERE nombre = ?');
+    $rolStmt = $pdo->prepare('SELECT id_rol FROM rol WHERE nombre = ?');
     $rolStmt->execute(['cliente']);
     $rol = $rolStmt->fetch();
     $idRol = $rol['id_rol'] ?? null;
 
-    $usuarioStmt = $pdo->prepare('INSERT INTO Usuario (usuario, contrasena, estado, id_cliente, id_rol) VALUES (?, ?, ?, ?, ?)');
-    $usuarioStmt->execute([$correo, password_hash($contrasena1, PASSWORD_DEFAULT), 'activo', $idCliente, $idRol]);
+    $usuarioStmt = $pdo->prepare('INSERT INTO usuario (usuario, contrasena, id_cliente, id_rol) VALUES (?, ?, ?, ?)');
+    $usuarioStmt->execute([$correo, password_hash($contrasena1, PASSWORD_DEFAULT), $idCliente, $idRol]);
+
 
     $pdo->commit();
 
