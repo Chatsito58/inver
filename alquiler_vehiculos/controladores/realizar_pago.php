@@ -23,13 +23,15 @@ if ($idAbono <= 0 || $idMedioPago <= 0) {
 
 $pdo = Conexion::getPDO();
 
-// Comprobar que el abono pertenece al cliente
-$abonoStmt = $pdo->prepare('SELECT id FROM abono WHERE id = ? AND id_cliente = ?');
+// Comprobar que el abono pertenece al cliente y que está pendiente
+$abonoStmt = $pdo->prepare(
+    "SELECT id FROM abono WHERE id = ? AND id_cliente = ? AND (estado = 'pendiente' OR pagado = 0)"
+);
 $abonoStmt->execute([$idAbono, $idCliente]);
 $abono = $abonoStmt->fetch();
 
 if (!$abono) {
-    header('Location: /cliente/perfil.php?error=Abono%20invalido');
+    header('Location: /cliente/perfil.php?error=Abono%20inexistente%20o%20ya%20pagado');
     exit;
 }
 
