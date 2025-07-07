@@ -53,8 +53,8 @@ try {
     $rol = $rolStmt->fetch();
     $idRol = $rol['id_rol'] ?? null;
 
-    $usuarioStmt = $pdo->prepare('INSERT INTO Usuario (usuario, contrasena, id_cliente, id_rol) VALUES (?, ?, ?, ?)');
-    $usuarioStmt->execute([$correo, password_hash($contrasena1, PASSWORD_DEFAULT), $idCliente, $idRol]);
+    $usuarioStmt = $pdo->prepare('INSERT INTO Usuario (usuario, contrasena, estado, id_cliente, id_rol) VALUES (?, ?, ?, ?, ?)');
+    $usuarioStmt->execute([$correo, password_hash($contrasena1, PASSWORD_DEFAULT), 'activo', $idCliente, $idRol]);
 
     $pdo->commit();
 
