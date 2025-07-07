@@ -38,7 +38,7 @@ try {
     $stmtCat = $pdo->prepare($catQuery);
     $stmtCat->execute([$categoria, $_SESSION['id_cliente']]);
 
-    header('Location: /cliente/perfil.php?exito=Licencia%20actualizada');
+    header('Location: /cliente/perfil.php?actualizado=1');
     exit;
 } catch (PDOException $e) {
     header('Location: /cliente/perfil.php?error=Error%20al%20actualizar%20la%20licencia');

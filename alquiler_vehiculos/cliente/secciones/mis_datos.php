@@ -25,9 +25,9 @@ if ($idCliente) {
 }
 ?>
 
-<?php if (isset($_GET['exito'])): ?>
+<?php if (($_GET['actualizado'] ?? '') === '1'): ?>
     <div class="alert alert-success">
-        <?php echo htmlspecialchars($_GET['exito']); ?>
+        Licencia actualizada
     </div>
 <?php elseif (isset($_GET['error'])): ?>
     <div class="alert alert-danger">
