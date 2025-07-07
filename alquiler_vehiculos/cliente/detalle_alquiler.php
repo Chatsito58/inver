@@ -13,7 +13,11 @@ if (!isset($_GET['id'])) {
 
 $id_alquiler = (int) $_GET['id'];
 
+<<<<<<< HEAD
 require_once 'modelos/conexion.php';
+=======
+require_once __DIR__ . '/../modelos/conexion.php';
+>>>>>>> 8d02ac62080603dd5692250635e759bb6cfb8167
 
 $pdo = Conexion::getPDO();
 

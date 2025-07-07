@@ -2,7 +2,11 @@
 // ID del cliente en sesión
 $idCliente = $_SESSION['id_cliente'] ?? null;
 
+<<<<<<< HEAD
 require_once 'modelos/conexion.php';
+=======
+require_once __DIR__ . '/../../modelos/conexion.php';
+>>>>>>> 8d02ac62080603dd5692250635e759bb6cfb8167
 
 // Obtener la conexión a la base de datos
 $pdo = Conexion::getPDO();
